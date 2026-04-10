@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personal Finance Tips — Ankit Mehta</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    .post-header { margin-bottom: 2.5rem; }
+    .post-meta { display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+    .post-cat { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.2rem 0.6rem; border-radius: 99px; }
+    .post-info { font-size: 0.78rem; color: var(--muted); }
+    .post-title { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.5px; line-height: 1.25; color: var(--fg); margin-bottom: 0.5rem; }
+    .post-excerpt { font-size: 1rem; color: var(--bio); line-height: 1.7; }
+    .post-divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+    .post-body { font-size: 0.95rem; line-height: 1.85; color: var(--bio); }
+    .post-body h1 { font-size: 1.25rem; font-weight: 700; color: var(--fg); margin: 2rem 0 0.6rem; }
+    .post-body h2 { font-size: 1.1rem; font-weight: 700; color: var(--fg); margin: 1.75rem 0 0.5rem; }
+    .post-body h3 { font-size: 1rem; font-weight: 700; color: var(--fg); margin: 1.5rem 0 0.4rem; }
+    .post-body p { margin-bottom: 1.1rem; }
+    .post-body ul, .post-body ol { padding-left: 1.4rem; margin-bottom: 1.1rem; }
+    .post-body li { margin-bottom: 0.4rem; }
+    .post-body strong { font-weight: 700; color: var(--fg); }
+    .post-body a { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; }
+    .post-body hr { border: none; border-top: 1px solid var(--border); margin: 1.75rem 0; }
+    .post-body blockquote { border-left: 3px solid var(--border); padding-left: 1rem; color: var(--muted); font-style: italic; margin: 1.25rem 0; }
+    .back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; font-weight: 500; color: var(--muted); text-decoration: none; margin-bottom: 2rem; transition: color 0.15s; }
+    .back-link:hover { color: var(--fg); }
+    :root { --cat-finance-bg: #e8f4e8; --cat-finance-fg: #2d6a2d; --cat-productivity-bg: #e8eef8; --cat-productivity-fg: #2a4a8a; --cat-design-bg: #f8e8f4; --cat-design-fg: #7a2a6a; --cat-delivery-bg: #fdf0e0; --cat-delivery-fg: #8a5a10; }
+    [data-theme="dark"] { --cat-finance-bg: #1a2e1a; --cat-finance-fg: #6abf6a; --cat-productivity-bg: #1a2040; --cat-productivity-fg: #7a9fdf; --cat-design-bg: #2a1a28; --cat-design-fg: #cf7abf; --cat-delivery-bg: #2a2010; --cat-delivery-fg: #cfaa50; }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="topbar-name" href="../index.html">Ankit Mehta</a>
+    <div class="topbar-right">
+      <nav>
+        <a href="../index.html">Home</a>
+        <a href="../experience.html">Experience</a>
+        
+        <a href="../blog.html" class="active">Blog</a>
+        <a href="../wisdom.html">Wisdom</a>
+      </nav>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+  <div class="page inner">
+    <main style="max-width:660px; margin:0 auto;">
+      <a class="back-link" href="../blog.html">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to Blog
+      </a>
+      <div class="post-header">
+        <div class="post-meta">
+          <span class="post-cat" style="background:var(--cat-finance-bg);color:var(--cat-finance-fg);">Finance</span>
+          <span class="post-info">2025 &nbsp;·&nbsp; 4 min read</span>
+        </div>
+        <h1 class="post-title">Personal Finance Tips</h1>
+        <p class="post-excerpt">It is already too difficult to earn money. Saving and growing it is even harder. Here are the lessons I learned after years of getting it wrong.</p>
+      </div>
+      <hr class="post-divider" />
+      <div class="post-body">
+<p>I get it. Trust me. It is already too difficult to earn money. It is even more exhausting to save and grow the money you earn. It requires time, discipline, understanding of oneself, practice and patience. If you are too hard on yourself for not earning or saving enough every single day then, you lose faith in yourself and your ability to ever do it. I have been there, done that. But the important thing is… I got out of that negative self-talk.</p><p>I have been impatient, followed the wrong financial advice and have been demotivated to ever change anything for the better. After trying multiple ways of managing my money, I have realised my many mistakes. My whole idea about the concept of money and its importance had been wrong all along and I had to shake it up in my head a little.</p><p>Finally, I came across <a href="https://pika.page/posts/personal-productivity-system/edit">the buckets system</a>, set it up and now wondered what to do next. How do I build patience, discipline and clarity around managing my hard-earned money?</p><p>Here are some tips that I follow to manage my day-to-day finances. Even though these tips are super simple and generic, I am not a financial adviser or an expert. I am still making mistakes and learning from them every single day. So before you take any crazy financial steps, please talk to a registered and certified financial adviser.</p><h2>Can’t wait to buy it? Wait for 3 days.</h2><p>“We are launching the new iPhone with the most powerful processor, the best camera, the brightest and most advanced display, and the craziest features. Pre-order it NOW to get it delivered FIRST”, Apple every year.</p><p>I know you are super excited to click that ‘Pre-order Now’ button…. but wait. Wait for 3 days.</p><p>Ask yourself these questions:</p><ul><li>Do I need it?</li></ul><ul><li>Will I be as excited to use it after 2 months as I am right now?</li></ul><ul><li>The cost of this item will be equivalent to 3 weeks’ worth of my salary. Is it worth it?</li></ul><ul><li>How much of a difference will it make in my life?</li></ul><ul><li>How much happiness will I get by buying this right now?</li></ul><p>If the answers to these questions are satisfactory and make sense to you, go buy it and enjoy! Mental health is also super important! At the end of the day, you must understand the difference between your ‘wants’ and your ‘needs’. No two people will have the same definition of ‘wants’ and ‘needs’ in life.</p><p>By the way, this is for every luxury you buy in life (not just the latest iPhone).</p><h2>Save water for the hot summer</h2><p>If you don’t already have one, open an Emergency bank account right now! I’m serious, go online and open one right now! I have briefly touched on this topic in my previous <a href="https://medium.com/@arteecl/my-simple-personal-finance-system-9e0ef5a831ca">post</a>.</p><p>There are few rules to follow with this account and trust me it will take a lot of discipline.</p><ul><li>This account should be in a bank different to the one you use for your day-to-day transactions.</li></ul><ul><li>This account should have enough money to help you survive for 4 to 6 months without any income.</li></ul><ul><li>Remember, this is an ‘Emergency’ account which is only to be used on your rainy days. Under no circumstances should the money in this account be used for any other reason (including pre-ordering that latest iPhone).</li></ul><ul><li>There is a high chance that this money will never be used or will be used after a long time. Why not let it grow as much as possible? Hence, this should be opened as a savings account in a bank that pays you the highest interest rate.</li></ul><ul><li>After you have 4 to 6 months’ worth of savings in this account, you should continue transferring a tiny percentage of your monthly income to it.</li></ul><h2>Invest, Invest, Invest</h2><p>Got your salary? Paid off bills, enjoyed some fancy dinners, and splurged on some new clothes? What about the remaining money? Are you planning to earn some interest with those savings in the bank account? How much interest is your bank’s savings account paying?</p><p>It is a well-known fact that the stock markets have historically outperformed the rate of inflation and bank savings account interest rates.</p><p>I know, it is a confusing and overwhelming domain. But, you are not alone. There are plenty of resources online which explain every single step in the process no matter what country you live in.</p><p>I personally only invest in ETFs (thank you for the tip Mr. Buffet!). <a href="https://moneysmart.gov.au/managed-funds-and-etfs/exchange-traded-funds-etfs">ETFs (or Exchange Traded Funds)</a> provide a lower risk, lower cost and more diversified medium to invest in the market.</p><p>My personal investment portfolio in Australia is built with 3 low-cost ETFs — <a href="https://www.blackrock.com/au/individual/products/275304/ishares-s-p-500-etf">IVV</a> (50%), <a href="https://investor.vanguard.com/investment-products/etfs/profile/veu">VEU</a> (25%) and <a href="https://www.vanguard.com.au/adviser/invest/etf?portId=8205">VAS</a> (25%). I will cover more of these in my future posts. Essentially, these ETFs cover the top 500 companies in the United States, developed and emerging markets outside of the U.S. and the top 300 companies in Australia.</p><p>I don’t suggest investing all your savings in the stock market (even if it is just ETFs), but I do recommend investing the majority of your savings, as long as your Emergency account has enough money for the rainy days.</p><p><em><strong>Please talk to your financial adviser and accountant before making investment decisions.</strong></em></p><h2>Honey, I bought an Alpaca… You did What!?</h2><p>Yep, I know you saw this coming. Every financial adviser and personal finance educator starts their advice by saying “Make a monthly budget and stick to it”. Hence, I am doing something different this time… I am saying this at the end of this post (I am awesome!).</p><p>First of all, it is boring and difficult to plan a monthly household budget. It is even more painful to stick to it. And it is excruciating to track your spending. I get your feeling. I have been there and life doesn’t look pretty.</p><p>There are a few steps to make this process simple. Again, this will require a lot of discipline (probably more than maintaining an Emergency account).</p><p>Start by sitting with your partner (the one whom you share your life and expenses with) and write down a goal for the next 3 years, 5 years and 10 years. For example, We will have $150,000 in our investment portfolio by the end of the next 3 years. We will own a new property by the end of 5 years. We will start our own business by the end of the next 10 years.</p><p>Now open your bank transactions. Note down all your expenses for the previous month. Every single thing. Divide these into categories. I categorise them as follows:</p><ul><li>Groceries</li></ul><ul><li>Medical (Doctors, medicines and medical tests)</li></ul><ul><li>Personal grooming (haircuts, facials, spa treatments, etc.)</li></ul><ul><li>Gifts (for each other, friends, family and yourself)</li></ul><ul><li>Shopping</li></ul><ul><li>Entertainment (movie tickets, sports, shows, etc.)</li></ul><ul><li>Eating out (including takeaway food)</li></ul><ul><li>Coffee/Tea</li></ul><ul><li>Fuel</li></ul><ul><li>Fixed (bills, insurance premiums, car parking)</li></ul><ul><li>Home improvement (including plants and light globes)</li></ul><ul><li>Investments</li></ul><p>This shows you how much you spend on average in each of these categories every month. You might observe that you are spending more than necessary in some categories and might want to cut down there to satisfy your goal. Do that and now calculate the total amount.</p><p>This is your realistic budget. This budget includes your lifestyle and savings goal.</p><p>Finally, create a spreadsheet with dates in the first column starting from the first day of the month till the last and write down the categories in the top row.</p><p>Every single night before going to bed, you must open your bank transactions list, check the amount for every transaction, sum it up as per category and enter it in your spreadsheet under the relevant category against today’s date. At the end of the month, check the total amount spent under each category and see how you are tracking against your budget.</p><p>Chances are that you might not crack it in the first three months. But from the fourth month onward you will become a master of creating, tracking and maintaining your budget. Don’t be too hard on yourself.</p><hr/><p>That’s it. You can do it. You can take control of your money. I believe in you! The main aim of this exercise is to get comfortable with money and build a healthy relationship with it. Money is not something to be scared of. It should work for you more than you work for it.</p>
+      </div>
+    </main>
+    <footer>&copy; 2026 Ankit Mehta</footer>
+  </div>
+  <script src="../theme.js"></script>
+</body>
+</html>

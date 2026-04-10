@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Colours and User Experience — Ankit Mehta</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    .post-header { margin-bottom: 2.5rem; }
+    .post-meta { display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+    .post-cat { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.2rem 0.6rem; border-radius: 99px; }
+    .post-info { font-size: 0.78rem; color: var(--muted); }
+    .post-title { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.5px; line-height: 1.25; color: var(--fg); margin-bottom: 0.5rem; }
+    .post-excerpt { font-size: 1rem; color: var(--bio); line-height: 1.7; }
+    .post-divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+    .post-body { font-size: 0.95rem; line-height: 1.85; color: var(--bio); }
+    .post-body h1 { font-size: 1.25rem; font-weight: 700; color: var(--fg); margin: 2rem 0 0.6rem; }
+    .post-body h2 { font-size: 1.1rem; font-weight: 700; color: var(--fg); margin: 1.75rem 0 0.5rem; }
+    .post-body h3 { font-size: 1rem; font-weight: 700; color: var(--fg); margin: 1.5rem 0 0.4rem; }
+    .post-body p { margin-bottom: 1.1rem; }
+    .post-body ul, .post-body ol { padding-left: 1.4rem; margin-bottom: 1.1rem; }
+    .post-body li { margin-bottom: 0.4rem; }
+    .post-body strong { font-weight: 700; color: var(--fg); }
+    .post-body a { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; }
+    .post-body hr { border: none; border-top: 1px solid var(--border); margin: 1.75rem 0; }
+    .post-body blockquote { border-left: 3px solid var(--border); padding-left: 1rem; color: var(--muted); font-style: italic; margin: 1.25rem 0; }
+    .back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; font-weight: 500; color: var(--muted); text-decoration: none; margin-bottom: 2rem; transition: color 0.15s; }
+    .back-link:hover { color: var(--fg); }
+    :root { --cat-finance-bg: #e8f4e8; --cat-finance-fg: #2d6a2d; --cat-productivity-bg: #e8eef8; --cat-productivity-fg: #2a4a8a; --cat-design-bg: #f8e8f4; --cat-design-fg: #7a2a6a; --cat-delivery-bg: #fdf0e0; --cat-delivery-fg: #8a5a10; }
+    [data-theme="dark"] { --cat-finance-bg: #1a2e1a; --cat-finance-fg: #6abf6a; --cat-productivity-bg: #1a2040; --cat-productivity-fg: #7a9fdf; --cat-design-bg: #2a1a28; --cat-design-fg: #cf7abf; --cat-delivery-bg: #2a2010; --cat-delivery-fg: #cfaa50; }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="topbar-name" href="../index.html">Ankit Mehta</a>
+    <div class="topbar-right">
+      <nav>
+        <a href="../index.html">Home</a>
+        <a href="../experience.html">Experience</a>
+        
+        <a href="../blog.html" class="active">Blog</a>
+        <a href="../wisdom.html">Wisdom</a>
+      </nav>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+  <div class="page inner">
+    <main style="max-width:660px; margin:0 auto;">
+      <a class="back-link" href="../blog.html">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to Blog
+      </a>
+      <div class="post-header">
+        <div class="post-meta">
+          <span class="post-cat" style="background:var(--cat-design-bg);color:var(--cat-design-fg);">Design</span>
+          <span class="post-info">2023 &nbsp;·&nbsp; 2 min read</span>
+        </div>
+        <h1 class="post-title">Colours and User Experience</h1>
+        <p class="post-excerpt">Colours are not just a topic in fine arts — they are a science. Just changing a hue or saturation value can invoke a completely different feeling in the viewer.</p>
+      </div>
+      <hr class="post-divider" />
+      <div class="post-body">
+<p>Did you know that colors play a vital role in the way a living being perceives information? Colors are not just a topic in fine-arts but they are a science in itself. Don’t worry, I am not going to get into the physics of a prism converting the white light into a rainbow. But if you are interested in it, please read <a href="https://www.physicsclassroom.com/class/refrn/Lesson-4/Dispersion-of-Light-by-Prisms">dispersion of light by prisms</a> in your spare time. It is really interesting.</p><p>Anyways, coming back to the topic. Colors are so important when it comes to delivering information that just changing the hue or saturation value can invoke a completely different feeling. If you are wondering how can a petty thing like color make a big difference, ask yourself — why does the color white represent peace or surrender?</p><p>A specific color in one culture can mean something completely different in another. For example, in general, the solid color red (Hex value: FF0000, RGB value: 255,0,0) represents fire, violence, warfare, love and passion. But the same red also represents prosperity and happiness in China. In some countries, the color red is worn by brides on their wedding days while in South Africa, red represents mourning. In the ‘western’ countries, the color red represents luxury and elegance. Think about it the next time you walk on the ‘red’ carpet?</p><p>I know, I know, you might be thinking why is this guy so obsessed with colors? It is because the colors you choose in your user interface designs raise different emotions and feelings in the audience. In fact — and I apologize once again for referring to the color red — it is found that red <a href="https://csef.usc.edu/History/2003/Projects/S0317.pdf">raises blood pressure</a> and respiration rate and also increases human metabolism.</p><p>One tool that I have been constantly using to decide colors and shades for all my projects is <a href="https://coolors.co/generate">Coolors</a>.</p><a href="https://cdn.u.pika.page/VeHnQX1PUxkYG4u67SPnvPRV_OzWA_cbeug98txPt7U/s:1800:1400/fn:coolors/plain/s3://pika-production/v583ntzubmorce9wfwlxutcpaomv"><img src="https://cdn.u.pika.page/VeHnQX1PUxkYG4u67SPnvPRV_OzWA_cbeug98txPt7U/s:1800:1400/fn:coolors/plain/s3://pika-production/v583ntzubmorce9wfwlxutcpaomv"/></a><p>This is a free and intuitive tool to generate color combinations. You can lock some colors and move them around to see how they match with other colors in the palette. There are many contributors to this tool who have already generated some cool color combinations. You can simply use them if you’d like to save time.</p>
+      </div>
+    </main>
+    <footer>&copy; 2026 Ankit Mehta</footer>
+  </div>
+  <script src="../theme.js"></script>
+</body>
+</html>

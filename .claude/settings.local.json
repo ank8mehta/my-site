@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sort -t_ -k1)",
+      "Bash(python3 -m http.server 3000)",
+      "Bash(echo \"PID: $!\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://127.0.0.1:3000/)",
+      "Read(//Users/system/Documents/**)",
+      "Bash(pandoc --track-changes=all Ankit_Mehta_Resume.docx -t plain)",
+      "Bash(brew install:*)",
+      "Bash(python3 -c ':*)",
+      "Bash(sed -i '' 's/<ul class=\"role-bullets achievements\">/<ul class=\"role-bullets\">/g' /Users/system/Documents/MySite/experience.html)",
+      "Bash(sed -i '' 's/6 countries delivered across/Operated across 6 countries/' /Users/system/Documents/MySite/experience.html)",
+      "Bash(grep -rn \"—\" /Users/system/Documents/MySite/*.html)",
+      "Bash(xargs sed:*)",
+      "Bash(gh auth:*)",
+      "Bash(git config:*)",
+      "Bash(git --version)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git rm:*)",
+      "Bash(git commit -m ':*)"
+    ]
+  }
+}

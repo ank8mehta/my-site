@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Favourite Task Management Styles — Ankit Mehta</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    .post-header { margin-bottom: 2.5rem; }
+    .post-meta { display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+    .post-cat { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.2rem 0.6rem; border-radius: 99px; }
+    .post-info { font-size: 0.78rem; color: var(--muted); }
+    .post-title { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.5px; line-height: 1.25; color: var(--fg); margin-bottom: 0.5rem; }
+    .post-excerpt { font-size: 1rem; color: var(--bio); line-height: 1.7; }
+    .post-divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+    .post-body { font-size: 0.95rem; line-height: 1.85; color: var(--bio); }
+    .post-body h1 { font-size: 1.25rem; font-weight: 700; color: var(--fg); margin: 2rem 0 0.6rem; }
+    .post-body h2 { font-size: 1.1rem; font-weight: 700; color: var(--fg); margin: 1.75rem 0 0.5rem; }
+    .post-body h3 { font-size: 1rem; font-weight: 700; color: var(--fg); margin: 1.5rem 0 0.4rem; }
+    .post-body p { margin-bottom: 1.1rem; }
+    .post-body ul, .post-body ol { padding-left: 1.4rem; margin-bottom: 1.1rem; }
+    .post-body li { margin-bottom: 0.4rem; }
+    .post-body strong { font-weight: 700; color: var(--fg); }
+    .post-body a { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; }
+    .post-body hr { border: none; border-top: 1px solid var(--border); margin: 1.75rem 0; }
+    .post-body blockquote { border-left: 3px solid var(--border); padding-left: 1rem; color: var(--muted); font-style: italic; margin: 1.25rem 0; }
+    .back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; font-weight: 500; color: var(--muted); text-decoration: none; margin-bottom: 2rem; transition: color 0.15s; }
+    .back-link:hover { color: var(--fg); }
+    :root { --cat-finance-bg: #e8f4e8; --cat-finance-fg: #2d6a2d; --cat-productivity-bg: #e8eef8; --cat-productivity-fg: #2a4a8a; --cat-design-bg: #f8e8f4; --cat-design-fg: #7a2a6a; --cat-delivery-bg: #fdf0e0; --cat-delivery-fg: #8a5a10; }
+    [data-theme="dark"] { --cat-finance-bg: #1a2e1a; --cat-finance-fg: #6abf6a; --cat-productivity-bg: #1a2040; --cat-productivity-fg: #7a9fdf; --cat-design-bg: #2a1a28; --cat-design-fg: #cf7abf; --cat-delivery-bg: #2a2010; --cat-delivery-fg: #cfaa50; }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="topbar-name" href="../index.html">Ankit Mehta</a>
+    <div class="topbar-right">
+      <nav>
+        <a href="../index.html">Home</a>
+        <a href="../experience.html">Experience</a>
+        
+        <a href="../blog.html" class="active">Blog</a>
+        <a href="../wisdom.html">Wisdom</a>
+      </nav>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+  <div class="page inner">
+    <main style="max-width:660px; margin:0 auto;">
+      <a class="back-link" href="../blog.html">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to Blog
+      </a>
+      <div class="post-header">
+        <div class="post-meta">
+          <span class="post-cat" style="background:var(--cat-productivity-bg);color:var(--cat-productivity-fg);">Productivity</span>
+          <span class="post-info">2024 &nbsp;·&nbsp; 6 min read</span>
+        </div>
+        <h1 class="post-title">My Favourite Task Management Styles</h1>
+        <p class="post-excerpt">Ever spent more time managing your to-do list than actually doing things on it? Your work style and your list management style might just be misaligned.</p>
+      </div>
+      <hr class="post-divider" />
+      <div class="post-body">
+<p>Hey there, productivity enthusiasts and list-making champions! Are you all too familiar with the excitement of creating a dazzling to-do list, diligently ticking off items for the first few days, but then somehow getting lost in the sea of tasks, feeling overwhelmed or losing track of your goals? Have you ever felt tempted to blame your to-do list application and jump ship to a different one, hoping it would better support you in conquering your daily goals? If you’ve experienced that all-too-relatable scenario, rest assured, you’re not alone — welcome aboard my “been there, done that” boat! Chances are that your work style is not aligned with your to-do list management style. But fear not, because, we’re going to navigate through the choppy waters of to-do list management and discover strategies that will keep you sailing smoothly towards accomplishing your tasks and goals with ease.</p><p>I have discovered that there are four styles of to-do list management. There are many more, but only these four made sense to me after I tried each one. They are simple to understand and follow, although it’s important to note that not all styles will work for everyone. If you’ve attempted a particular style and found it challenging to stick with, it may not be the right fit for you.</p><p>I believe 5 factors can help identify the perfect to-do list management style for you:</p><ol type="1" start="1"><li>Relationship with Time: Consider how accurately you can estimate the time required for each task on your daily list. Do most of your tasks have specific time constraints?</li></ol><ol type="1" start="2"><li>Visualisation Preference: Determine whether you prefer to visualise all your tasks in a single view to better plan your day effectively.</li></ol><ol type="1" start="3"><li>Handling Multiple Jobs/Projects: Decide whether you prefer maintaining multiple lists, each dedicated to a specific job or project.</li></ol><ol type="1" start="4"><li>Procrastination and Distractions: Reflect on your tendency to leave tasks until the last moment or get easily distracted when dealing with multiple tasks simultaneously.</li></ol><ol type="1" start="5"><li>Organisation Skills: Evaluate how much time you are willing to invest in organising your to-do list(s).</li></ol><p>By considering these factors, you can find a to-do list management style that aligns with your unique preferences and enhances your productivity. Remember, experimentation is key, and it’s perfectly normal to try out different styles before finding the one that works best for you.</p><p>So, without further ado, here are the 4 major styles of to-do list management:</p><h2>Task Manager</h2><p>This is the simplest style of to-do list. In this approach, you create a running list of tasks and check them off as you complete them. You can either use traditional pen and paper for it or make use of the power of technology.</p><p>There are plenty of apps out there that can help make this a better experience by using the following features:</p><p>Add a deadline: Set specific deadlines for each task to keep yourself accountable and prioritise effectively.</p><p>Upload files or add detailed notes: Attach files or add detailed notes to tasks, ensuring all the necessary information is readily available.</p><p>Set it as recurring tasks: Automate repetitive tasks by setting them as recurring, saving you time and effort in re-entering them.</p><p>Assign it to other people: Delegate tasks to others, making it an excellent tool for collaborative projects or teamwork.</p><p>Set reminder notifications: Receive timely reminders to stay on top of your tasks and meet your deadlines.</p><p>However, when using the Task Manager style, it’s crucial to be precise with task descriptions to avoid confusion, especially when dealing with similar tasks. For example, on Monday, you add a task ‘Write an article’ thinking that you’d be writing an article on Blue Whales’ habitat and set the deadline as Friday. On Wednesday, you added another task, ‘Write an article,’ thinking that you’d be writing an article on Dolphins communicating underwater with a deadline of Saturday. When you check your list on Thursday, you have two duplicate tasks with different deadlines and are now confused about what needs to be completed and when.</p><p>With the Task Manager style of to-do list management, it is very easy to get lost in the ever-growing list. However, it also offers the opportunity to automate your task list (recurring tasks) and remind you of deadlines.</p><p>Some recommended applications:</p><ul><li>Things 3 (I personally use this)</li></ul><ul><li>Todoist</li></ul><ul><li>TickTick</li></ul><h2>No List, Just a Calendar</h2><p>When managing a long list of tasks, it’s natural to feel overwhelmed, particularly if you juggle multiple jobs and side projects like me. In such cases, the task manager style might not be the best fit. Instead, consider adopting a time-blocking approach and adding all your tasks directly to your calendar.</p><p>There are some benefits to using this method:</p><ul><li>Comprehensive View: By consolidating all tasks in your calendar, you can easily see your schedule and commitments for different aspects of your life.</li></ul><ul><li>Dedicated Time: Assigning specific time blocks to each task encourages focused work and reduces the chances of procrastination.</li></ul><ul><li>Priority Management: You can prioritise tasks effectively and allocate suitable time slots based on their importance and urgency.</li></ul><p>If you are using a digital calendar to manage your tasks, you can make use of all the features mentioned in the Task Manager style.</p><p>However, this method does come with some downsides:</p><ul><li>Task time estimation: This method is only useful if you know how much time each of your tasks is going to take.</li></ul><ul><li>Calendar overwhelm: Some people might get overwhelmed by looking at their full calendars and get discouraged.</li></ul><p>To manage your tasks in this style, you can use any calendar application, such as Google Calendar, Microsoft Outlook Calendar, or Cron.</p><p>Ultimately, the time-blocking method can significantly enhance productivity and focus, but it requires understanding your task durations and finding a balance between structure and flexibility in your schedule.</p><h2>Bento Method</h2><p>This one is my personal favourite.</p><p>We all have numerous tasks in a day. Sometimes, it is easy to track them in a running list (Task Manager method), but sometimes, it is easy to lose focus and work on non-urgent tasks. It could be due to the temptation to procrastinate on challenging tasks or simply being overwhelmed by our day-to-day responsibilities.</p><p>That’s when Bento Method comes to your rescue. I was introduced to this by Francesco D’Alessio on his YouTube channel Keep Productive. The brilliance of the Bento Method lies in its simplicity: it prompts you to review all your tasks and meticulously select the three most important ones.</p><p>These are as follows:</p><p>Task 1: The most crucial and time-sensitive assignment.</p><p>Task 2: An equally important and time-sensitive task.</p><p>Task 3: A smaller yet significant task.</p><p>You dedicate the highest amount of time to Task 1 followed by Task 2 and Task 3. The primary goal is to complete these three tasks by the end of the day, even if it means leaving other items on your traditional task manager list untouched.</p><p>This method is extremely powerful and useful if you follow the ‘Eat the Frog’ productivity system, which encourages tackling your toughest and most critical task first. The beauty of this method is its ability to enhance focus, boost confidence, and provide the motivation needed to tackle the rest of your daily tasks.</p><p>If you are a fan of this method like me, I highly recommend using the Bento Method mobile app. It is beautiful and does the job perfectly well while providing you with the essential resources to improve your productivity.</p><h2>The 1 Task</h2><p>This To-do list management style is a bit similar to the Bento Method but stricter. It goes like this:</p><p>Step 1: Begin by listing all the tasks you wish to accomplish in the day. This comprehensive list will serve as your foundation.</p><p>Step 2: Analyse each task’s importance and urgency, ranking them in order of significance.</p><p>Step 3: Choose the task occupying the topmost spot on your priority list. This single task will become your sole focus for the day.</p><p>Step 4: Dedicate a separate space, perhaps a sticky note or section on your digital device, to write down this chosen task. This written reminder serves as your constant guide throughout the day.</p><p>Step 5: Dive into that top-priority task and work on it diligently until completion. The satisfaction of accomplishing this task will define your day as truly successful.</p><p>This method improves focus and helps build your prioritisation skills. It doesn’t allow you to multitask, so you can’t switch between tasks. If the one highest priority task you choose is difficult, then there are high chances of procrastination.</p><p>Hence, I recommend this method to people who possess high levels of self-motivation and an unwavering ability to remain focused. It is a powerful tool for refining your prioritisation skills and accomplishing your most essential goals effectively.</p><h2>Conclusion</h2><p>The journey towards productivity is a dynamic process, filled with learning and growth. With the right to-do list management style, we can confidently steer our ship towards accomplishments, balance, and success in both our personal and professional journeys. So, productivity enthusiasts and list-making champions, embark on this exciting voyage and let the power of an optimised to-do list propel you towards the heights of achievement and fulfilment!</p>
+      </div>
+    </main>
+    <footer>&copy; 2026 Ankit Mehta</footer>
+  </div>
+  <script src="../theme.js"></script>
+</body>
+</html>

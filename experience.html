@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Experience — Ankit Mehta</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Timeline layout ── */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .tl-item {
+      position: relative;
+      margin-bottom: 2.75rem;
+    }
+
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      top: 8px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--fg);
+      transform: translateX(-4px);
+      transition: background 0.2s;
+    }
+
+    .tl-item:first-child::before {
+      background: var(--fg);
+      box-shadow: 0 0 0 3px var(--bg), 0 0 0 4px var(--fg);
+    }
+
+    /* ── Role card ── */
+    .role-header {
+      margin-bottom: 0.85rem;
+    }
+
+    .role-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.3rem;
+    }
+
+    .role-date {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--muted);
+    }
+
+    .role-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--bg);
+      background: var(--fg);
+      border-radius: 99px;
+      padding: 0.15rem 0.55rem;
+    }
+
+    .role-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--fg);
+      line-height: 1.3;
+      margin-bottom: 0.2rem;
+    }
+
+    .role-company {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .role-summary {
+      font-size: 0.88rem;
+      line-height: 1.75;
+      color: var(--bio);
+      margin-bottom: 0.85rem;
+    }
+
+    /* ── Bullets ── */
+    .role-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .role-bullets li {
+      font-size: 0.85rem;
+      line-height: 1.65;
+      color: var(--bio);
+      padding-left: 1.1rem;
+      position: relative;
+    }
+
+    .role-bullets li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--muted);
+    }
+
+    /* ── Achievements ── */
+    .achievements {
+      border-left: 2px solid var(--border);
+      padding-left: 1rem;
+      margin-top: 0.85rem;
+    }
+
+    .achievements-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .achievements li {
+      font-size: 0.85rem;
+      line-height: 1.65;
+      color: var(--bio);
+      padding-left: 1.1rem;
+      position: relative;
+      margin-bottom: 0.3rem;
+    }
+
+    .achievements li::before {
+      content: '★';
+      position: absolute;
+      left: 0;
+      font-size: 0.6rem;
+      color: var(--muted);
+      top: 3px;
+    }
+
+    /* ── Highlights bar ── */
+    .highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .highlight-pill {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--bio);
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.4rem 0.75rem;
+      line-height: 1.4;
+    }
+
+    .highlight-pill strong {
+      color: var(--fg);
+      font-weight: 700;
+    }
+
+    hr.tl-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin-bottom: 2.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <a class="topbar-name" href="index.html">Ankit Mehta</a>
+    <div class="topbar-right">
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="experience.html" class="active">Experience</a>
+        
+        <a href="blog.html">Blog</a>
+        <a href="wisdom.html">Wisdom</a>
+      </nav>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="page inner">
+    <main>
+      <h1 class="page-heading">Experience</h1>
+
+      <!-- Career highlights -->
+      <p class="section-label" style="margin-bottom:1rem;">Career highlights</p>
+      <div class="highlights">
+        <div class="highlight-pill"><strong>$900K+</strong> in funding secured</div>
+        <div class="highlight-pill"><strong>$400K+</strong> revenue leakage identified</div>
+        <div class="highlight-pill"><strong>$300K</strong> annual cost savings delivered</div>
+        <div class="highlight-pill"><strong>30%</strong> reduction in cloud migration effort</div>
+        <div class="highlight-pill"><strong>40%</strong> fewer post-migration incidents</div>
+        <div class="highlight-pill"><strong>25+</strong> BAs mentored</div>
+        <div class="highlight-pill"><strong>10+</strong> years of experience</div>
+        <div class="highlight-pill">Operated across 6 countries</div>
+      </div>
+
+      <hr class="tl-divider" />
+
+      <!-- Timeline -->
+      <p class="section-label" style="margin-bottom:1.5rem;">Work history</p>
+      <div class="timeline">
+
+        <!-- Tabcorp -->
+        <div class="tl-item">
+          <div class="role-header">
+            <div class="role-meta">
+              <span class="role-date">April 2023 to Present</span>
+              <span class="role-badge">Current</span>
+            </div>
+            <p class="role-title">Delivery Manager / Lead Business Analyst</p>
+            <p class="role-company">Tabcorp Assets Pty Ltd · Melbourne</p>
+          </div>
+          <p class="role-summary">One of Australia's leading gambling and entertainment companies undergoing significant digital and enterprise transformation. Led end-to-end delivery of multiple high-impact SaaS initiatives across HR, Finance, Procurement, Legal and Communications, while managing senior Level 3 operational support for the Oracle Fusion ERP ecosystem. Managed globally distributed teams across Australia, India, Singapore, the Philippines, Germany, and the US.</p>
+          <ul class="role-bullets">
+            <li>Led delivery of enterprise-grade SaaS platforms including UKG Kronos, a new payroll system, and Staffbase, improving efficiency across 4,000+ users.</li>
+            <li>Managed vendor selection end-to-end: RFI/RFPs, demos, scoring, and procurement negotiations.</li>
+            <li>Developed business cases securing $900K+ in funding by clearly demonstrating ROI and risk mitigation.</li>
+            <li>Oversaw a team of four Business Analysts in an $8M Oracle Fusion ERP program across HCM, Finance, and Procurement modules.</li>
+            <li>Took on dual Delivery Lead and Scrum Master roles, facilitating agile ceremonies, managing Jira boards, and coordinating UAT and cutover.</li>
+            <li>Developed the BA Community of Excellence, standardising analysis frameworks and mentoring 25+ Business Analysts.</li>
+          </ul>
+          <div class="achievements">
+            <p class="achievements-label">Key achievements</p>
+            <ul class="role-bullets">
+              <li>Delivered three critical SaaS platforms ahead of schedule and under budget.</li>
+              <li>Unified disconnected processes across eight divisions, improving operational efficiency and compliance.</li>
+              <li>Played a pivotal role in Tabcorp's $8M ERP transformation, leading BA teams and aligning global delivery partners.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Acenda -->
+        <div class="tl-item">
+          <div class="role-header">
+            <div class="role-meta">
+              <span class="role-date">April 2022 to April 2023</span>
+            </div>
+            <p class="role-title">Lead Technical Business Analyst</p>
+            <p class="role-company">Acenda Insurance (formerly MLC Life Insurance) · Melbourne</p>
+          </div>
+          <p class="role-summary">One of Australia's leading life insurers, serving 1.2M+ customers. Led analysis and delivery for high-volume Advisor and Customer Portals serving 350,000+ policyholders in a strictly regulated financial environment.</p>
+          <ul class="role-bullets">
+            <li>Led end-to-end delivery and technical analysis for Advisor and Customer Portals, aligning with regulatory standards and business objectives.</li>
+            <li>Managed and mentored a team of three Business Analysts within a Scaled Agile Framework.</li>
+            <li>Partnered with UI/UX designers to simplify user journeys and reduce friction across digital touchpoints.</li>
+            <li>Supported delivery of new digital payment platforms, improving customer self-service functionality.</li>
+            <li>Co-founded and led a Business Analysis Community of Practice, driving consistency and capability uplift.</li>
+          </ul>
+          <div class="achievements">
+            <p class="achievements-label">Key achievements</p>
+            <ul class="role-bullets">
+              <li>Delivered a complete portal redesign that reduced contact centre reliance, saving $300K annually.</li>
+              <li>Improved customer engagement by 25% through integration of new self-service payment options.</li>
+              <li>Grew the BA Community of Practice to 25+ members in 3 months, securing executive backing and funding.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Capgemini / ANZ -->
+        <div class="tl-item">
+          <div class="role-header">
+            <div class="role-meta">
+              <span class="role-date">September 2021 to April 2022</span>
+            </div>
+            <p class="role-title">Senior Technical Business Analyst / Scrum Master</p>
+            <p class="role-company">Capgemini Australia (Client: ANZ Bank) · Melbourne</p>
+          </div>
+          <p class="role-summary">Placed with ANZ Bank as part of a large-scale enterprise cloud transformation program migrating 3,000+ applications to AWS and GCP. Worked across four agile squads with teams distributed across Australia, India, and Malaysia.</p>
+          <ul class="role-bullets">
+            <li>Led business and technical analysis for cloud migration, capturing requirements and process documentation for AWS and GCP transitions.</li>
+            <li>Acted as Scrum Master for four agile squads, facilitating sprint ceremonies and managing team velocity.</li>
+            <li>Developed detailed migration playbooks and runbooks for both AWS and GCP platforms.</li>
+            <li>Created a centralised knowledge hub to improve onboarding and collaboration across squads.</li>
+            <li>Mentored junior BAs and graduate consultants on agile practices and business process mapping.</li>
+          </ul>
+          <div class="achievements">
+            <p class="achievements-label">Key achievements</p>
+            <ul class="role-bullets">
+              <li>Reduced average migration effort by 30%, cutting typical timelines from 12 weeks to 8 weeks per application.</li>
+              <li>Contributed to a 40% reduction in post-migration incidents through structured process design.</li>
+              <li>Established a reusable knowledge base that significantly improved team self-sufficiency and onboarding time.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Next Business Energy -->
+        <div class="tl-item">
+          <div class="role-header">
+            <div class="role-meta">
+              <span class="role-date">March 2021 to September 2021</span>
+            </div>
+            <p class="role-title">Project Delivery Lead</p>
+            <p class="role-company">Next Business Energy · Melbourne</p>
+          </div>
+          <p class="role-summary">An Australian energy retailer focused on electricity services for SMBs. Worked directly with the executive team to map core processes, identify revenue leakage, and deliver system enhancements in collaboration with external vendors.</p>
+          <ul class="role-bullets">
+            <li>Led company-wide documentation of end-to-end business processes across all operational units, giving executives their first comprehensive view of operations and compliance gaps.</li>
+            <li>Conducted as-is and to-be process mapping to identify inefficiencies, regulatory risks, and commercial opportunities.</li>
+            <li>Acted as Delivery Lead for enhancements to the Agility CIS billing system, coordinating with New Zealand-based vendors.</li>
+            <li>Delivered a new solar energy trading product for SMB customers within a 3-month timeframe, enabling entry into the Queensland market.</li>
+          </ul>
+          <div class="achievements">
+            <p class="achievements-label">Key achievements</p>
+            <ul class="role-bullets">
+              <li>Identified and helped address $400K+ in annual revenue leakage through process analysis and stakeholder collaboration.</li>
+              <li>Delivered a first-of-its-kind solar product on time, positioning the business for geographic expansion.</li>
+              <li>Reduced customer issue resolution time from 5 business days to 2 following billing system enhancements.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Ava Group -->
+        <div class="tl-item">
+          <div class="role-header">
+            <div class="role-meta">
+              <span class="role-date">January 2018 to March 2021</span>
+            </div>
+            <p class="role-title">Technical Business Analyst</p>
+            <p class="role-company">The Ava Group · Melbourne</p>
+          </div>
+          <p class="role-summary">A global provider of security and sensing solutions, including fibre optic perimeter intrusion detection systems protecting borders, pipelines, and mining infrastructure. Embedded in the R&amp;D team at the intersection of software engineering, compliance, and cybersecurity.</p>
+          <ul class="role-bullets">
+            <li>Captured business and technical requirements for a fibre optic-based intrusion detection system integrated with external defence and control systems.</li>
+            <li>Led functional, integration, and UAT testing to validate performance of AI/ML-driven detection algorithms under real-world conditions.</li>
+            <li>Acted as Scrum Master using Azure DevOps for sprint planning and tracking.</li>
+            <li>Designed and built an automated versioning tool in C#/MVVM, eliminating manual version updates across 6+ codebases.</li>
+            <li>Developed automated unit testing frameworks to improve code quality and reduce regression test time by 50%.</li>
+          </ul>
+          <div class="achievements">
+            <p class="achievements-label">Key achievements</p>
+            <ul class="role-bullets">
+              <li>Delivered a mission-critical AI-powered perimeter detection system through rigorous testing and iterative delivery.</li>
+              <li>Built an automated versioning system that saved approximately 50% of version management time across multiple repositories.</li>
+              <li>Strengthened QA capability through reusable automated tests, accelerating delivery and improving reliability.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Monash University - Mentor -->
+        <div class="tl-item">
+          <div class="role-header">
+            <div class="role-meta">
+              <span class="role-date">February 2018 to Present</span>
+              <span class="role-badge">Ongoing</span>
+            </div>
+            <p class="role-title">Business Analysis Mentor / Teaching Associate Lead</p>
+            <p class="role-company">Monash University · Melbourne (Casual Contract)</p>
+          </div>
+          <p class="role-summary">Mentors postgraduate students across five specialised IT degrees (MIT, AI, Business Information Systems, Data Science, and Cyber Security) during their final semester Industry Experience capstone. Delivers hands-on instruction on practical BA techniques, Agile delivery frameworks, and architectural design of digital solutions.</p>
+        </div>
+
+        <!-- Monash University - eSolutions -->
+        <div class="tl-item">
+          <div class="role-header">
+            <div class="role-meta">
+              <span class="role-date">July 2016 to December 2017</span>
+            </div>
+            <p class="role-title">Systems Analyst</p>
+            <p class="role-company">Monash University eSolutions · Melbourne</p>
+          </div>
+          <p class="role-summary">Within the IT division, acted as a hands-on technical lead for operational intelligence and ITSM optimisation, bridging high-level analysis with deep-tier technical support.</p>
+          <ul class="role-bullets">
+            <li>Core member of the team responsible for the PoC and implementation of Splunk as the university's primary Operational Intelligence tool.</li>
+            <li>Built automated dashboards for senior leadership within BMC Helix ITSM, upskilling managers on data-driven performance monitoring.</li>
+            <li>Led automation of manual workflows within the Student Complaint and Issue Resolution Service Desk.</li>
+          </ul>
+          <div class="achievements">
+            <p class="achievements-label">Key achievements</p>
+            <ul class="role-bullets">
+              <li>Reduced student service desk issue resolution time by 50% through targeted automation and workflow redesign.</li>
+              <li>Established Splunk as the organisation's foundational tool for operational visibility.</li>
+              <li>Improved departmental productivity by 20% through automated reporting and big data analysis.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Yardi -->
+        <div class="tl-item">
+          <div class="role-header">
+            <div class="role-meta">
+              <span class="role-date">January 2015 to December 2015</span>
+            </div>
+            <p class="role-title">Software Developer</p>
+            <p class="role-company">Yardi Software · India</p>
+          </div>
+          <p class="role-summary">Worked on Yardi's flagship property management ERP, building custom Tenant and Broker portals from scratch using .NET and SQL, integrating front-end interfaces with the core ERP to automate leasing and data management.</p>
+        </div>
+
+      </div><!-- end timeline -->
+    </main>
+    <footer>&copy; 2026 Ankit Mehta</footer>
+  </div>
+
+  <script src="theme.js"></script>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wisdom — Ankit Mehta</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Wisdom intro ── */
+    .wisdom-intro {
+      margin-bottom: 3rem;
+    }
+
+    .wisdom-intro p {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--bio);
+      margin-bottom: 1rem;
+    }
+
+    .wisdom-intro p:last-child { margin-bottom: 0; }
+
+    /* ── Category tabs ── */
+    .category-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      font-size: 0.8rem;
+      font-weight: 600;
+      font-family: inherit;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 0.4rem 0.9rem;
+      border-radius: 99px;
+      border: 1px solid var(--border);
+      background: none;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+
+    .tab-btn:hover { color: var(--fg); border-color: var(--fg); }
+
+    .tab-btn.active {
+      background: var(--fg);
+      color: var(--bg);
+      border-color: var(--fg);
+    }
+
+    /* ── Category sections ── */
+    .category-section { display: none; }
+    .category-section.visible { display: block; }
+
+    .category-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── Wisdom cards ── */
+    .wisdom-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .wisdom-card {
+      padding: 1.25rem 1.4rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--input-bg);
+      transition: border-color 0.15s;
+    }
+
+    .wisdom-card:hover { border-color: var(--muted); }
+
+    .wisdom-card p {
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: var(--bio);
+    }
+
+    .wisdom-card .attribution {
+      display: block;
+      margin-top: 0.6rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <a class="topbar-name" href="index.html">Ankit Mehta</a>
+    <div class="topbar-right">
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="experience.html">Experience</a>
+        
+        <a href="blog.html">Blog</a>
+        <a href="wisdom.html" class="active">Wisdom</a>
+      </nav>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="page inner">
+    <main>
+      <h1 class="page-heading">Wisdom</h1>
+
+      <!-- Introduction -->
+      <div class="wisdom-intro">
+        <p>Over the years, I've picked up lessons from all sorts of places: books, podcasts, historical events, inspiring people, and more than a few mistakes of my own. I'm still learning, and probably always will be.</p>
+        <p>I started scribbling down words of wisdom and insights in a notebook, just for myself. But while mentoring final-semester IT postgraduate students at Monash University (many of whom were stepping into the workforce for the very first time), I realised these thoughts might be useful to others too.</p>
+        <p>So I decided to start sharing them here.</p>
+        <p>Some things you might agree with. Some you might not. That's perfectly okay. I truly value different perspectives, and if something I've shared sparks a new thought or even disagreement, I'd love to hear about it. Your experience might just teach me something new.</p>
+        <p>I have categorised my learning into four categories: <strong>Wealth, Work, Mind</strong> and <strong>Health</strong>. I believe these form the threads of life.</p>
+      </div>
+
+      <!-- Category tabs -->
+      <div class="category-tabs">
+        <button class="tab-btn active" data-target="wealth">Wealth</button>
+        <button class="tab-btn" data-target="work">Work</button>
+        <button class="tab-btn" data-target="mind">Mind</button>
+        <button class="tab-btn" data-target="health">Health</button>
+      </div>
+
+      <!-- Wealth -->
+      <section class="category-section visible" id="wealth">
+        <p class="category-label">Wealth</p>
+        <div class="wisdom-list">
+          <div class="wisdom-card">
+            <p>Never depend on a single source of income. Diversify, whether it's a side hustle, investment, or passion project. Security comes from having options.</p>
+          </div>
+          <div class="wisdom-card">
+            <p>Use your time to learn and develop skills that can help you earn money passively or with minimal daily effort.</p>
+          </div>
+          <div class="wisdom-card">
+            <p>Don't just use your skills. Turn them into a product or service others are willing to pay for.</p>
+          </div>
+          <div class="wisdom-card">
+            <p>Understand the difference between money and wealth. Money is earned. Wealth is built. Money keeps you going. Wealth sets you free.</p>
+          </div>
+          <div class="wisdom-card">
+            <p>Spend less than you earn. Invest the surplus in an index fund. Avoid debt.</p>
+            <span class="attribution">J. L. Collins</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Work -->
+      <section class="category-section" id="work">
+        <p class="category-label">Work</p>
+        <div class="wisdom-list">
+          <div class="wisdom-card">
+            <p>Don't just use your skills. Turn them into a product or service others are willing to pay for.</p>
+          </div>
+          <div class="wisdom-card">
+            <p>A good leader doesn't say 'impossible.' They say, 'it'll take longer, but we'll get there.'</p>
+          </div>
+          <div class="wisdom-card">
+            <p>If you want to finish work, work from home. If you want to grow at work, work from the office.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mind -->
+      <section class="category-section" id="mind">
+        <p class="category-label">Mind</p>
+        <div class="wisdom-list">
+          <div class="wisdom-card">
+            <p>The best advice is also the most boring advice delivered by the most boring people.</p>
+            <span class="attribution">Hasan Minhaj</span>
+          </div>
+          <div class="wisdom-card">
+            <p>Don't be afraid to ask the so-called dumb questions. Complex problems often have simple answers, but only if someone's brave enough to ask what others won't.</p>
+          </div>
+          <div class="wisdom-card">
+            <p>Murphy's Law, Kidlin's Law, Gilbert's Law, Walson's Law, and Falkland's Law. They're simple, a little cynical, and weirdly accurate.</p>
+          </div>
+          <div class="wisdom-card">
+            <p>No one in life is better than you, but you are no better than anyone else. Always treat people with respect.</p>
+            <span class="attribution">Robert Herjavec's mother</span>
+          </div>
+          <div class="wisdom-card">
+            <p>People never remember what you say, but they remember how you made them feel.</p>
+            <span class="attribution">Robert Herjavec</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Health -->
+      <section class="category-section" id="health">
+        <p class="category-label">Health</p>
+        <div class="wisdom-list">
+          <div class="wisdom-card">
+            <p>Pause. Breathe. Continue. Moments pass quickly, and one day, so will we.</p>
+          </div>
+          <div class="wisdom-card">
+            <p>As long as your body is healthy, you'll have thousands of problems, but the moment your body gets sick, you have only one problem. Respect, take care, and love your body.</p>
+            <span class="attribution">Master Shi Heng Yi</span>
+          </div>
+        </div>
+      </section>
+
+    </main>
+    <footer>&copy; 2026 Ankit Mehta</footer>
+  </div>
+
+  <script src="theme.js"></script>
+  <script>
+    const tabs = document.querySelectorAll('.tab-btn');
+    const sections = document.querySelectorAll('.category-section');
+
+    tabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        sections.forEach(s => s.classList.remove('visible'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.target).classList.add('visible');
+      });
+    });
+  </script>
+</body>
+</html>

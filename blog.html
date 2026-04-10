@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Ankit Mehta</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    :root {
+      --cat-finance-bg: #e8f4e8;      --cat-finance-fg: #2d6a2d;
+      --cat-productivity-bg: #e8eef8; --cat-productivity-fg: #2a4a8a;
+      --cat-design-bg: #f8e8f4;       --cat-design-fg: #7a2a6a;
+      --cat-delivery-bg: #fdf0e0;     --cat-delivery-fg: #8a5a10;
+    }
+    [data-theme="dark"] {
+      --cat-finance-bg: #1a2e1a;      --cat-finance-fg: #6abf6a;
+      --cat-productivity-bg: #1a2040; --cat-productivity-fg: #7a9fdf;
+      --cat-design-bg: #2a1a28;       --cat-design-fg: #cf7abf;
+      --cat-delivery-bg: #2a2010;     --cat-delivery-fg: #cfaa50;
+    }
+
+    /* ── Filter tabs ── */
+    .filter-tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .filter-btn {
+      font-size: 0.8rem;
+      font-weight: 600;
+      font-family: inherit;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 0.4rem 0.9rem;
+      border-radius: 99px;
+      border: 1px solid var(--border);
+      background: none;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .filter-btn:hover { color: var(--fg); border-color: var(--fg); }
+    .filter-btn.active { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+
+    /* ── Post grid ── */
+    .post-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    @media (max-width: 580px) { .post-grid { grid-template-columns: 1fr; } }
+
+    .post-card {
+      display: flex;
+      flex-direction: column;
+      padding: 1.35rem 1.4rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--input-bg);
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .post-card:hover { border-color: var(--muted); transform: translateY(-2px); }
+
+    .post-card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .post-cat {
+      font-size: 0.67rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.18rem 0.55rem;
+      border-radius: 99px;
+    }
+
+    .post-info {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .post-card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--fg);
+      line-height: 1.35;
+      margin-bottom: 0.5rem;
+    }
+
+    .post-card-excerpt {
+      font-size: 0.82rem;
+      line-height: 1.65;
+      color: var(--bio);
+      flex: 1;
+    }
+
+    .post-card-read {
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: color 0.15s;
+    }
+    .post-card:hover .post-card-read { color: var(--fg); }
+
+    .post-count {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .no-posts {
+      grid-column: 1 / -1;
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--muted);
+      padding: 3rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <a class="topbar-name" href="index.html">Ankit Mehta</a>
+    <div class="topbar-right">
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="experience.html">Experience</a>
+        
+        <a href="blog.html" class="active">Blog</a>
+        <a href="wisdom.html">Wisdom</a>
+      </nav>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="page inner">
+    <main>
+      <h1 class="page-heading">Blog</h1>
+
+      <!-- Category filters -->
+      <div class="filter-tabs">
+        <button class="filter-btn active" data-cat="all">All</button>
+        <button class="filter-btn" data-cat="Finance">Finance</button>
+        <button class="filter-btn" data-cat="Productivity">Productivity</button>
+        <button class="filter-btn" data-cat="Design">Design</button>
+        <button class="filter-btn" data-cat="Project Delivery">Project Delivery</button>
+      </div>
+
+      <p class="post-count" id="post-count">10 posts</p>
+
+      <!-- Post grid -->
+      <div class="post-grid" id="post-grid">
+
+        <a class="post-card" href="posts/money-freedom.html" data-cat="Finance" data-year="2025">
+          <div class="post-card-meta">
+            <span class="post-cat" style="background:var(--cat-finance-bg);color:var(--cat-finance-fg);">Finance</span>
+            <span class="post-info">2025 &nbsp;·&nbsp; 8 min read</span>
+          </div>
+          <p class="post-card-title">Money, Freedom and Building Something that Lasts</p>
+          <p class="post-card-excerpt">My father told me to invest on the day I got my first paycheck. I bought a smartphone instead. This is the story of what I eventually learned.</p>
+          <span class="post-card-read">Read post <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+
+        <a class="post-card" href="posts/personal-finance-tips.html" data-cat="Finance" data-year="2025">
+          <div class="post-card-meta">
+            <span class="post-cat" style="background:var(--cat-finance-bg);color:var(--cat-finance-fg);">Finance</span>
+            <span class="post-info">2025 &nbsp;·&nbsp; 4 min read</span>
+          </div>
+          <p class="post-card-title">Personal Finance Tips</p>
+          <p class="post-card-excerpt">It is already too difficult to earn money. Saving and growing it is even harder. Here are the lessons I learned after years of getting it wrong.</p>
+          <span class="post-card-read">Read post <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+
+        <a class="post-card" href="posts/investing-made-simple.html" data-cat="Finance" data-year="2025">
+          <div class="post-card-meta">
+            <span class="post-cat" style="background:var(--cat-finance-bg);color:var(--cat-finance-fg);">Finance</span>
+            <span class="post-info">2025 &nbsp;·&nbsp; 4 min read</span>
+          </div>
+          <p class="post-card-title">Investing Made Simple: #1 - From the VOC to ETFs</p>
+          <p class="post-card-excerpt">Modern stock market investing began with the Dutch East India Company in 1602. Understanding that history makes today's ETFs feel a lot less mysterious.</p>
+          <span class="post-card-read">Read post <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+
+        <a class="post-card" href="posts/task-management.html" data-cat="Productivity" data-year="2024">
+          <div class="post-card-meta">
+            <span class="post-cat" style="background:var(--cat-productivity-bg);color:var(--cat-productivity-fg);">Productivity</span>
+            <span class="post-info">2024 &nbsp;·&nbsp; 6 min read</span>
+          </div>
+          <p class="post-card-title">My Favourite Task Management Styles</p>
+          <p class="post-card-excerpt">Ever spent more time managing your to-do list than actually doing things on it? Your work style and your list management style might just be misaligned.</p>
+          <span class="post-card-read">Read post <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+
+        <a class="post-card" href="posts/personal-finance-system.html" data-cat="Productivity" data-year="2024">
+          <div class="post-card-meta">
+            <span class="post-cat" style="background:var(--cat-productivity-bg);color:var(--cat-productivity-fg);">Productivity</span>
+            <span class="post-info">2024 &nbsp;·&nbsp; 7 min read</span>
+          </div>
+          <p class="post-card-title">My Simple Personal Finance System</p>
+          <p class="post-card-excerpt">Money is a piece of paper the whole world works day and night to achieve. Here is the simple system I built to stop stressing about it and start making it work for me.</p>
+          <span class="post-card-read">Read post <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+
+        <a class="post-card" href="posts/personal-productivity.html" data-cat="Productivity" data-year="2024">
+          <div class="post-card-meta">
+            <span class="post-cat" style="background:var(--cat-productivity-bg);color:var(--cat-productivity-fg);">Productivity</span>
+            <span class="post-info">2024 &nbsp;·&nbsp; 3 min read</span>
+          </div>
+          <p class="post-card-title">Personal Productivity System</p>
+          <p class="post-card-excerpt">I am not a productivity guru. But after going through the books, forums, and tools, I've settled into a system that actually works for me.</p>
+          <span class="post-card-read">Read post <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+
+        <a class="post-card" href="posts/standup-meetings.html" data-cat="Project Delivery" data-year="2023">
+          <div class="post-card-meta">
+            <span class="post-cat" style="background:var(--cat-delivery-bg);color:var(--cat-delivery-fg);">Project Delivery</span>
+            <span class="post-info">2023 &nbsp;·&nbsp; 8 min read</span>
+          </div>
+          <p class="post-card-title">Power of Stand-up Meetings</p>
+          <p class="post-card-excerpt">Stand-ups are one of the most misunderstood rituals in software delivery. Done right, they're a force multiplier. Done wrong, they're just daily status theatre.</p>
+          <span class="post-card-read">Read post <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+
+        <a class="post-card" href="posts/colours-and-ux.html" data-cat="Design" data-year="2023">
+          <div class="post-card-meta">
+            <span class="post-cat" style="background:var(--cat-design-bg);color:var(--cat-design-fg);">Design</span>
+            <span class="post-info">2023 &nbsp;·&nbsp; 2 min read</span>
+          </div>
+          <p class="post-card-title">Colours and User Experience</p>
+          <p class="post-card-excerpt">Colours are not just a topic in fine arts — they are a science. Just changing a hue or saturation value can invoke a completely different feeling in the viewer.</p>
+          <span class="post-card-read">Read post <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+
+        <a class="post-card" href="posts/interface-design.html" data-cat="Design" data-year="2023">
+          <div class="post-card-meta">
+            <span class="post-cat" style="background:var(--cat-design-bg);color:var(--cat-design-fg);">Design</span>
+            <span class="post-info">2023 &nbsp;·&nbsp; 3 min read</span>
+          </div>
+          <p class="post-card-title">Interface Design for Humans</p>
+          <p class="post-card-excerpt">Many companies struggle with designing interfaces people actually enjoy. Something complex in the back-end doesn't have to be confusing in the front-end.</p>
+          <span class="post-card-read">Read post <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+
+        <a class="post-card" href="posts/bi-scm-crm-erp.html" data-cat="Project Delivery" data-year="2022">
+          <div class="post-card-meta">
+            <span class="post-cat" style="background:var(--cat-delivery-bg);color:var(--cat-delivery-fg);">Project Delivery</span>
+            <span class="post-info">2022 &nbsp;·&nbsp; 4 min read</span>
+          </div>
+          <p class="post-card-title">BI, SCM, CRM and ERP Systems</p>
+          <p class="post-card-excerpt">If you work in a corporate environment, you've heard these buzzwords. Not everyone understands the use, benefits, and differences between these complex systems.</p>
+          <span class="post-card-read">Read post <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+
+      </div>
+    </main>
+    <footer>&copy; 2026 Ankit Mehta</footer>
+  </div>
+
+  <script src="theme.js"></script>
+  <script>
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.post-card');
+    const countEl = document.getElementById('post-count');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const cat = btn.dataset.cat;
+        let visible = 0;
+        cards.forEach(card => {
+          const show = cat === 'all' || card.dataset.cat === cat;
+          card.style.display = show ? '' : 'none';
+          if (show) visible++;
+        });
+        countEl.textContent = visible === 10 ? '10 posts' : `${visible} post${visible !== 1 ? 's' : ''}`;
+      });
+    });
+  </script>
+</body>
+</html>
