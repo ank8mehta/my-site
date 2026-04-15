@@ -259,7 +259,7 @@ main {
   font-weight: 800;
   letter-spacing: -0.8px;
   margin-bottom: 0.5rem;
-  color: var(--fg);
+  color: var(--accent);
   line-height: 1.15;
 }
 
@@ -1041,7 +1041,7 @@ footer {
 
 .tab-btn.active {
   background: var(--card-bg);
-  color: var(--fg);
+  color: var(--accent);
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border);
 }
