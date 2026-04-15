@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Life — Ankit Mehta</title>
+  <link rel="stylesheet" href="style.css?v=2" />
+  <style>
+    /* ═══════════════════════════════════════════════════
+       LIFE PAGE
+       ═══════════════════════════════════════════════════ */
+    .life-page {
+      padding-top: 52px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .life-hero {
+      padding: 3rem 1.5rem 1.75rem;
+      max-width: 680px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* ── Year strip ── */
+    .year-strip-wrap {
+      width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .year-strip-wrap::-webkit-scrollbar { display: none; }
+
+    .year-strip {
+      display: flex;
+      align-items: flex-end;
+      min-width: max-content;
+      padding: 0 max(2rem, calc(50% - 380px)) 0;
+      position: relative;
+    }
+
+    /* Horizontal line */
+    .year-strip::before {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      bottom: 26px;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .year-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 0 18px 14px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      position: relative;
+      z-index: 1;
+      transition: opacity 150ms;
+    }
+
+    .year-node-label {
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--muted);
+      white-space: nowrap;
+      transition: color 200ms;
+    }
+
+    .year-node-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border-hover);
+      transition: background 200ms, transform 200ms, box-shadow 200ms;
+      flex-shrink: 0;
+    }
+
+    .year-node:hover .year-node-label { color: var(--fg); }
+    .year-node:hover .year-node-dot   { background: var(--fg); transform: scale(1.25); }
+
+    .year-node.active .year-node-label { color: var(--accent); font-weight: 700; }
+    .year-node.active .year-node-dot {
+      background: var(--accent);
+      transform: scale(1.6);
+      box-shadow: 0 0 0 4px rgba(182,21,46,0.18);
+    }
+
+    /* ── Slider ── */
+    .slider-section {
+      width: 100%;
+      position: relative;
+      padding: 2rem 0 0;
+    }
+
+    /* Fade edges */
+    .slider-section::before,
+    .slider-section::after {
+      content: '';
+      position: absolute;
+      top: 2rem; bottom: 0;
+      width: 72px;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .slider-section::before {
+      left: 0;
+      background: linear-gradient(to right, var(--bg) 0%, transparent 100%);
+    }
+    .slider-section::after {
+      right: 0;
+      background: linear-gradient(to left, var(--bg) 0%, transparent 100%);
+    }
+
+    .slider-viewport {
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .slider-track {
+      display: flex;
+      transition: transform 400ms cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
+    }
+
+    .slide {
+      flex: 0 0 100%;
+      display: flex;
+      justify-content: center;
+      padding: 0 1.5rem;
+    }
+
+    /* ── Card ── */
+    .life-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 560px;
+      padding: 2rem 2rem 1.5rem;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+      user-select: none;
+      cursor: grab;
+    }
+    .life-card:active { cursor: grabbing; }
+
+    /* Category top bar */
+    .life-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      border-radius: 20px 20px 0 0;
+    }
+    .life-card.milestone::before { background: var(--accent); }
+    .life-card.education::before { background: #0A66C2; }
+    .life-card.work::before      { background: #16a34a; }
+    .life-card.personal::before  { background: #7c3aed; }
+
+    /* Watermark year */
+    .card-watermark {
+      position: absolute;
+      bottom: -0.75rem;
+      right: 0.75rem;
+      font-family: 'Epilogue', sans-serif;
+      font-size: 6.5rem;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -5px;
+      pointer-events: none;
+      color: var(--fg);
+      opacity: 0.04;
+      z-index: 0;
+    }
+
+    /* Type pill */
+    .card-type {
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 0.2rem 0.65rem;
+      border-radius: 99px;
+      display: inline-block;
+      margin-bottom: 1.25rem;
+      position: relative;
+      z-index: 1;
+    }
+    .milestone .card-type { background: rgba(182,21,46,0.1);  color: var(--accent); }
+    .education .card-type { background: rgba(10,102,194,0.1); color: #0A66C2; }
+    .work      .card-type { background: rgba(22,163,74,0.1);  color: #16a34a; }
+    .personal  .card-type { background: rgba(124,58,237,0.1); color: #7c3aed; }
+
+    [data-theme="dark"] .milestone .card-type { background: rgba(182,21,46,0.18); }
+    [data-theme="dark"] .education .card-type { background: rgba(10,102,194,0.18); }
+    [data-theme="dark"] .work      .card-type { background: rgba(22,163,74,0.18); }
+    [data-theme="dark"] .personal  .card-type { background: rgba(124,58,237,0.18); }
+
+    .card-icon {
+      font-size: 2.25rem;
+      line-height: 1;
+      margin-bottom: 0.875rem;
+      display: block;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-text {
+      font-family: 'Epilogue', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--fg);
+      line-height: 1.35;
+      letter-spacing: -0.4px;
+      margin-bottom: 0.75rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-date {
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Card footer with progress */
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      gap: 0.75rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-count {
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--muted);
+      white-space: nowrap;
+      letter-spacing: 0.03em;
+    }
+
+    .card-prog-track {
+      flex: 1;
+      height: 3px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .card-prog-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 3px;
+      transition: width 400ms cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* ── Navigation ── */
+    .slider-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      padding: 1.75rem 1.5rem 1.5rem;
+    }
+
+    .nav-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      color: var(--fg);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 200ms, color 200ms, box-shadow 200ms, transform 200ms, opacity 200ms;
+      flex-shrink: 0;
+    }
+    .nav-btn:hover:not(:disabled) {
+      border-color: var(--accent);
+      color: var(--accent);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+    .nav-btn:disabled { opacity: 0.25; cursor: not-allowed; }
+
+    .nav-hint {
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    /* ── Legend ── */
+    .life-legend {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 0 1.5rem 3rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .legend-pip {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .life-card { border-radius: 16px; padding: 1.5rem 1.25rem 1.25rem; }
+      .card-text { font-size: 1.0625rem; }
+      .card-watermark { font-size: 4.5rem; }
+      .slider-section::before, .slider-section::after { width: 36px; }
+      .nav-hint { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <a class="topbar-name" href="index.html">Ankit Mehta</a>
+    <div class="topbar-right">
+      <nav>
+        <a href="experience.html">Experience</a>
+        <a href="blog.html">Blog</a>
+        <a href="life.html" class="active">Life</a>
+        <a href="wisdom.html">Wisdom</a>
+      </nav>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="life-page">
+
+    <div class="life-hero">
+      <p class="section-label">Life</p>
+      <h1 class="page-heading">The journey so far.</h1>
+      <p class="page-subheading">23 milestones. 3 countries. One story.</p>
+    </div>
+
+    <!-- Year strip -->
+    <div class="year-strip-wrap">
+      <div class="year-strip" id="year-strip"></div>
+    </div>
+
+    <!-- Slider -->
+    <div class="slider-section">
+      <div class="slider-viewport">
+        <div class="slider-track" id="slider-track"></div>
+      </div>
+    </div>
+
+    <!-- Nav -->
+    <div class="slider-nav">
+      <button class="nav-btn" id="prev-btn" aria-label="Previous event">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <span class="nav-hint">Arrow keys or swipe</span>
+      <button class="nav-btn" id="next-btn" aria-label="Next event">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+
+    <!-- Legend -->
+    <div class="life-legend">
+      <div class="legend-item"><div class="legend-pip" style="background:#b6152e"></div>Milestone</div>
+      <div class="legend-item"><div class="legend-pip" style="background:#0A66C2"></div>Education</div>
+      <div class="legend-item"><div class="legend-pip" style="background:#16a34a"></div>Work</div>
+      <div class="legend-item"><div class="legend-pip" style="background:#7c3aed"></div>Personal</div>
+    </div>
+
+  </div>
+
+  <script src="theme.js"></script>
+  <script>
+    /* ─── Data ─── */
+    const events = [
+      {
+        year: 2009, date: "2009",
+        text: "Achieved Guinness Book of World Records Certificate for being part of the world's longest painting",
+        type: "milestone", icon: "🏆"
+      },
+      {
+        year: 2010, date: "2010",
+        text: "Finished school",
+        type: "education", icon: "🎓"
+      },
+      {
+        year: 2013, date: "2013",
+        text: "Finished Bachelor of Computer Applications (Honours) from Maharaja Sayajirao University of Baroda",
+        type: "education", icon: "🎓"
+      },
+      {
+        year: 2014, date: "2014",
+        text: "Became a Firefox Student Ambassador",
+        type: "milestone", icon: "🦊"
+      },
+      {
+        year: 2015, date: "January 2015",
+        text: "Started working at Yardi Software",
+        type: "work", icon: "💼"
+      },
+      {
+        year: 2015, date: "2015",
+        text: "Finished Master of Science in Computer Applications (specialised in System Administration) from Symbiosis International University",
+        type: "education", icon: "🎓"
+      },
+      {
+        year: 2016, date: "2016",
+        text: "Became a Mozilla Ambassador Lead for Australia",
+        type: "milestone", icon: "🌏"
+      },
+      {
+        year: 2016, date: "2016",
+        text: "Moved to Australia to pursue Master of Business Information Systems from Monash University",
+        type: "personal", icon: "✈️"
+      },
+      {
+        year: 2016, date: "July 2016",
+        text: "Started working at eSolutions, Monash University",
+        type: "work", icon: "💼"
+      },
+      {
+        year: 2017, date: "2017",
+        text: "Finished Master of Business Information Systems from Monash University",
+        type: "education", icon: "🎓"
+      },
+      {
+        year: 2018, date: "2018",
+        text: "Became a Certified Professional Scrum Master",
+        type: "milestone", icon: "📋"
+      },
+      {
+        year: 2018, date: "January 2018",
+        text: "Started working at The Ava Group",
+        type: "work", icon: "💼"
+      },
+      {
+        year: 2018, date: "February 2018",
+        text: "Started teaching at Monash University",
+        type: "work", icon: "🧑‍🏫"
+      },
+      {
+        year: 2020, date: "2020",
+        text: "Became Microsoft Certified Power BI Data Analyst Associate",
+        type: "milestone", icon: "📊"
+      },
+      {
+        year: 2021, date: "March 2021",
+        text: "Started working at Next Business Energy",
+        type: "work", icon: "💼"
+      },
+      {
+        year: 2021, date: "2021",
+        text: "Became an Australian Citizen",
+        type: "personal", icon: "🇦🇺"
+      },
+      {
+        year: 2021, date: "2021",
+        text: "Became Certified SAFe 5 Practitioner",
+        type: "milestone", icon: "📋"
+      },
+      {
+        year: 2021, date: "September 2021",
+        text: "Started working at Capgemini Australia",
+        type: "work", icon: "💼"
+      },
+      {
+        year: 2022, date: "2022",
+        text: "Became AWS Certified Cloud Practitioner",
+        type: "milestone", icon: "☁️"
+      },
+      {
+        year: 2022, date: "April 2022",
+        text: "Started working at Acenda Insurance",
+        type: "work", icon: "💼"
+      },
+      {
+        year: 2023, date: "April 2023",
+        text: "Started working at Tabcorp",
+        type: "work", icon: "💼"
+      },
+      {
+        year: 2024, date: "2024",
+        text: "Completed PRINCE2 Foundation Certification",
+        type: "milestone", icon: "📋"
+      },
+      {
+        year: 2025, date: "2025",
+        text: "Became an Accredited Mental Health First Aider",
+        type: "milestone", icon: "🩺"
+      }
+    ];
+
+    /* ─── State ─── */
+    let current = 0;
+    const total = events.length;
+
+    /* ─── Build year strip ─── */
+    const uniqueYears = [...new Set(events.map(e => e.year))].sort((a,b)=>a-b);
+    const yearStrip = document.getElementById('year-strip');
+
+    uniqueYears.forEach(yr => {
+      const btn = document.createElement('button');
+      btn.className = 'year-node';
+      btn.dataset.year = yr;
+      btn.innerHTML = `
+        <span class="year-node-label">${yr}</span>
+        <span class="year-node-dot"></span>
+      `;
+      btn.addEventListener('click', () => {
+        const idx = events.findIndex(e => e.year === yr);
+        if (idx !== -1) goTo(idx);
+      });
+      yearStrip.appendChild(btn);
+    });
+
+    /* ─── Build slides ─── */
+    const track = document.getElementById('slider-track');
+
+    events.forEach((ev, i) => {
+      const slide = document.createElement('div');
+      slide.className = 'slide';
+      slide.innerHTML = `
+        <div class="life-card ${ev.type}">
+          <div class="card-watermark">${ev.year}</div>
+          <span class="card-type">${ev.type}</span>
+          <span class="card-icon">${ev.icon}</span>
+          <p class="card-text">${ev.text}</p>
+          <p class="card-date">${ev.date}</p>
+          <div class="card-footer">
+            <span class="card-count">${String(i+1).padStart(2,'0')} / ${String(total).padStart(2,'0')}</span>
+            <div class="card-prog-track">
+              <div class="card-prog-fill" id="prog-${i}" style="width:${Math.round(((i+1)/total)*100)}%"></div>
+            </div>
+          </div>
+        </div>
+      `;
+      track.appendChild(slide);
+    });
+
+    /* ─── Navigation ─── */
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+
+    function goTo(idx) {
+      current = Math.max(0, Math.min(total - 1, idx));
+      track.style.transform = `translateX(-${current * 100}%)`;
+      updateYearStrip();
+      updateButtons();
+      scrollYearIntoView();
+    }
+
+    function updateButtons() {
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === total - 1;
+    }
+
+    function updateYearStrip() {
+      const activeYear = events[current].year;
+      document.querySelectorAll('.year-node').forEach(node => {
+        node.classList.toggle('active', parseInt(node.dataset.year) === activeYear);
+      });
+    }
+
+    function scrollYearIntoView() {
+      const activeYear = events[current].year;
+      const node = yearStrip.querySelector(`[data-year="${activeYear}"]`);
+      if (node) {
+        const wrap = document.querySelector('.year-strip-wrap');
+        const nodeCenter = node.offsetLeft + node.offsetWidth / 2;
+        const scrollTarget = nodeCenter - wrap.clientWidth / 2;
+        wrap.scrollTo({ left: scrollTarget, behavior: 'smooth' });
+      }
+    }
+
+    prevBtn.addEventListener('click', () => goTo(current - 1));
+    nextBtn.addEventListener('click', () => goTo(current + 1));
+
+    /* ─── Keyboard ─── */
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft')  goTo(current - 1);
+      if (e.key === 'ArrowRight') goTo(current + 1);
+    });
+
+    /* ─── Touch / drag ─── */
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let isDragging = false;
+
+    track.addEventListener('touchstart', e => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      isDragging = false;
+    }, { passive: true });
+
+    track.addEventListener('touchmove', e => {
+      const dx = e.touches[0].clientX - touchStartX;
+      const dy = e.touches[0].clientY - touchStartY;
+      if (!isDragging && Math.abs(dx) > Math.abs(dy)) isDragging = true;
+    }, { passive: true });
+
+    track.addEventListener('touchend', e => {
+      if (!isDragging) return;
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (dx < -40) goTo(current + 1);
+      if (dx >  40) goTo(current - 1);
+    });
+
+    /* ─── Mouse drag ─── */
+    let mouseStartX = 0;
+    let mouseDragging = false;
+
+    track.addEventListener('mousedown', e => {
+      mouseStartX = e.clientX;
+      mouseDragging = true;
+    });
+    document.addEventListener('mouseup', e => {
+      if (!mouseDragging) return;
+      mouseDragging = false;
+      const dx = e.clientX - mouseStartX;
+      if (dx < -50) goTo(current + 1);
+      if (dx >  50) goTo(current - 1);
+    });
+    document.addEventListener('mousemove', e => {
+      if (mouseDragging) e.preventDefault();
+    });
+
+    /* ─── Init ─── */
+    goTo(0);
+  </script>
+
+</body>
+</html>
