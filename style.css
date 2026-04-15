@@ -407,6 +407,18 @@ footer {
 
 .links a svg { flex-shrink: 0; }
 
+.links a.linkedin-btn {
+  background: #0A66C2;
+  border-color: #0A66C2;
+  color: #ffffff;
+}
+
+.links a.linkedin-btn:hover {
+  background: #004182;
+  border-color: #004182;
+  color: #ffffff;
+}
+
 /* ═══════════════════════════════════════════════════
    CONTACT FORM
    ═══════════════════════════════════════════════════ */
