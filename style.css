@@ -311,12 +311,12 @@ footer {
   border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
-  box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--border), var(--shadow-md);
+  box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--accent), var(--shadow-md);
   transition: box-shadow var(--duration) var(--ease);
 }
 
 .avatar:hover {
-  box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--border-hover), var(--shadow-lg);
+  box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--accent-hover), var(--shadow-lg);
 }
 
 .avatar img {
@@ -349,7 +349,7 @@ footer {
   font-size: 2.25rem;
   font-weight: 900;
   letter-spacing: -1px;
-  color: var(--fg);
+  color: var(--accent);
   line-height: 1.1;
 }
 
