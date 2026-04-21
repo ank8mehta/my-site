@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Picks — Ankit Mehta</title>
+  <link rel="stylesheet" href="style.css?v=2" />
+  <style>
+    /* ═══════════════════════════════════════════════════
+       RECOMMENDATIONS PAGE
+       ═══════════════════════════════════════════════════ */
+
+    .rec-intro {
+      font-size: 0.9375rem;
+      line-height: 1.85;
+      color: var(--fg-secondary);
+      margin-bottom: 2.5rem;
+      max-width: 680px;
+    }
+
+    /* ── Main tabs (Books / Cinema) ── */
+    .rec-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .rec-tab {
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--muted);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 0.625rem 1.25rem 0.75rem;
+      margin-bottom: -1px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      letter-spacing: 0.01em;
+      transition: color 200ms, border-color 200ms;
+    }
+    .rec-tab:hover { color: var(--fg); }
+    .rec-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    .rec-tab-count {
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.1rem 0.45rem;
+      border-radius: 99px;
+      background: var(--bg-secondary);
+      color: var(--muted);
+      border: 1px solid var(--border);
+      transition: background 200ms, color 200ms;
+    }
+    .rec-tab.active .rec-tab-count {
+      background: rgba(182,21,46,0.1);
+      color: var(--accent);
+      border-color: rgba(182,21,46,0.2);
+    }
+
+    /* ── Cinema sub-tabs (Movies / Series) ── */
+    .cinema-subtabs {
+      display: flex;
+      gap: 0.375rem;
+      margin-bottom: 1.75rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.3rem;
+      width: fit-content;
+    }
+
+    .cinema-subtab {
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      background: none;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 0.375rem 1rem;
+      cursor: pointer;
+      transition: background 200ms, color 200ms, box-shadow 200ms;
+    }
+    .cinema-subtab:hover { color: var(--fg); }
+    .cinema-subtab.active {
+      background: var(--card-bg);
+      color: var(--accent);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+    }
+
+    /* ── Panels ── */
+    .rec-panel { display: none; }
+    .rec-panel.visible { display: block; }
+    .cinema-subpanel { display: none; }
+    .cinema-subpanel.visible { display: block; }
+
+    /* ── Genre filters ── */
+    .genre-filters {
+      display: flex;
+      gap: 0.375rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .genre-btn {
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 0.3rem 0.8rem;
+      border-radius: 99px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      color: var(--muted);
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: background 200ms, color 200ms, border-color 200ms, transform 200ms;
+    }
+    .genre-btn:hover { color: var(--fg); border-color: var(--border-hover); transform: translateY(-1px); }
+    .genre-btn.active { color: #fff; border-color: transparent; box-shadow: var(--shadow-md); }
+
+    /* All button */
+    .genre-btn[data-genre="All"].active { background: var(--fg); color: var(--bg); }
+    /* Genre active colours */
+    .genre-btn[data-genre="Political Satire"].active  { background: #0A66C2; }
+    .genre-btn[data-genre="Mystery Thriller"].active  { background: #16a34a; }
+    .genre-btn[data-genre="History"].active           { background: #7c3aed; }
+    .genre-btn[data-genre="Biography"].active         { background: #b6152e; }
+    .genre-btn[data-genre="Self-help"].active         { background: #64748b; }
+    .genre-btn[data-genre="Science"].active           { background: #b45309; }
+    .genre-btn[data-genre="Comedy"].active            { background: #ca8a04; }
+    .genre-btn[data-genre="Romance"].active           { background: #be185d; }
+    .genre-btn[data-genre="Drama"].active             { background: #0e7490; }
+    .genre-btn[data-genre="Epic drama"].active        { background: #4338ca; }
+    .genre-btn[data-genre="Thriller"].active          { background: #374151; }
+    .genre-btn[data-genre="Epic biography"].active    { background: #92400e; }
+    .genre-btn[data-genre="War"].active               { background: #b6152e; }
+    .genre-btn[data-genre="Legal drama"].active       { background: #c2410c; }
+    .genre-btn[data-genre="Spy action"].active        { background: #065f46; }
+    .genre-btn[data-genre="Crime"].active             { background: #1d4ed8; }
+    .genre-btn[data-genre="Apocalypse"].active        { background: #6b21a8; }
+    .genre-btn[data-genre="Historical drama"].active  { background: #78350f; }
+    .genre-btn[data-genre="Spy"].active               { background: #166534; }
+
+    /* ── Genre badge ── */
+    .genre-badge {
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.2rem 0.55rem;
+      border-radius: 99px;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .genre-badge[data-genre="Political Satire"]  { background: rgba(10,102,194,0.1);  color: #0A66C2; }
+    .genre-badge[data-genre="Mystery Thriller"]  { background: rgba(22,163,74,0.1);   color: #16a34a; }
+    .genre-badge[data-genre="History"]           { background: rgba(124,58,237,0.1);  color: #7c3aed; }
+    .genre-badge[data-genre="Biography"]         { background: rgba(182,21,46,0.1);   color: #b6152e; }
+    .genre-badge[data-genre="Self-help"]         { background: rgba(100,116,139,0.1); color: #64748b; }
+    .genre-badge[data-genre="Science"]           { background: rgba(180,83,9,0.1);    color: #b45309; }
+    .genre-badge[data-genre="Comedy"]            { background: rgba(202,138,4,0.1);   color: #ca8a04; }
+    .genre-badge[data-genre="Romance"]           { background: rgba(190,24,93,0.1);   color: #be185d; }
+    .genre-badge[data-genre="Drama"]             { background: rgba(14,116,144,0.1);  color: #0e7490; }
+    .genre-badge[data-genre="Epic drama"]        { background: rgba(67,56,202,0.1);   color: #4338ca; }
+    .genre-badge[data-genre="Thriller"]          { background: rgba(55,65,81,0.12);   color: #374151; }
+    .genre-badge[data-genre="Epic biography"]    { background: rgba(146,64,14,0.1);   color: #92400e; }
+    .genre-badge[data-genre="War"]               { background: rgba(182,21,46,0.1);   color: #b6152e; }
+    .genre-badge[data-genre="Legal drama"]       { background: rgba(194,65,12,0.1);   color: #c2410c; }
+    .genre-badge[data-genre="Spy action"]        { background: rgba(6,95,70,0.1);     color: #065f46; }
+    .genre-badge[data-genre="Crime"]             { background: rgba(29,78,216,0.1);   color: #1d4ed8; }
+    .genre-badge[data-genre="Apocalypse"]        { background: rgba(107,33,168,0.1);  color: #6b21a8; }
+    .genre-badge[data-genre="Historical drama"]  { background: rgba(120,53,15,0.1);   color: #78350f; }
+    .genre-badge[data-genre="Spy"]               { background: rgba(22,101,52,0.1);   color: #166534; }
+
+    [data-theme="dark"] .genre-badge { filter: brightness(1.25); }
+
+    /* ── Language pill ── */
+    .lang-pill {
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 600;
+      color: var(--muted);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      padding: 0.15rem 0.45rem;
+      border-radius: 99px;
+      white-space: nowrap;
+    }
+
+    /* ── Card grid ── */
+    .rec-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    @media (max-width: 720px) { .rec-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .rec-grid { grid-template-columns: 1fr; } }
+
+    .rec-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.125rem 1.25rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      transition: border-color 200ms, box-shadow 200ms, transform 200ms;
+      position: relative;
+      overflow: hidden;
+    }
+    .rec-card:hover {
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-3px);
+    }
+    .rec-card.hidden { display: none; }
+
+    /* Genre top stripe */
+    .rec-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+    }
+    .rec-card[data-genre="Political Satire"]::before  { background: #0A66C2; }
+    .rec-card[data-genre="Mystery Thriller"]::before  { background: #16a34a; }
+    .rec-card[data-genre="History"]::before           { background: #7c3aed; }
+    .rec-card[data-genre="Biography"]::before         { background: #b6152e; }
+    .rec-card[data-genre="Self-help"]::before         { background: #64748b; }
+    .rec-card[data-genre="Science"]::before           { background: #b45309; }
+    .rec-card[data-genre="Comedy"]::before            { background: #ca8a04; }
+    .rec-card[data-genre="Romance"]::before           { background: #be185d; }
+    .rec-card[data-genre="Drama"]::before             { background: #0e7490; }
+    .rec-card[data-genre="Epic drama"]::before        { background: #4338ca; }
+    .rec-card[data-genre="Thriller"]::before          { background: #374151; }
+    .rec-card[data-genre="Epic biography"]::before    { background: #92400e; }
+    .rec-card[data-genre="War"]::before               { background: #b6152e; }
+    .rec-card[data-genre="Legal drama"]::before       { background: #c2410c; }
+    .rec-card[data-genre="Spy action"]::before        { background: #065f46; }
+    .rec-card[data-genre="Crime"]::before             { background: #1d4ed8; }
+    .rec-card[data-genre="Apocalypse"]::before        { background: #6b21a8; }
+    .rec-card[data-genre="Historical drama"]::before  { background: #78350f; }
+    .rec-card[data-genre="Spy"]::before               { background: #166534; }
+
+    .rec-card-title {
+      font-family: 'Epilogue', sans-serif;
+      font-size: 0.9375rem;
+      font-weight: 800;
+      color: var(--fg);
+      line-height: 1.3;
+      letter-spacing: -0.3px;
+    }
+
+    .rec-card-author {
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.775rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .rec-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.375rem;
+      margin-top: auto;
+      padding-top: 0.625rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .rec-card-footer-left {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+
+    .rec-card-year {
+      font-family: 'Manrope', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .rec-count {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <a class="topbar-name" href="index.html">Ankit Mehta</a>
+    <div class="topbar-right">
+      <nav>
+        <a href="experience.html">Experience</a>
+        <a href="blog.html">Blog</a>
+        <a href="life.html">Life</a>
+        <a href="wisdom.html">Wisdom</a>
+        <a href="recommendations.html" class="active">Picks</a>
+      </nav>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="page inner">
+    <main>
+
+      <h1 class="page-heading">Picks</h1>
+      <p class="page-subheading">Books and cinema that earned a permanent place in my head.</p>
+
+      <p class="rec-intro">
+        Welcome to my personal archives — a space where I treat leisure time with the same intensity most people reserve for their careers. The books and films here are not chosen because they carry a bestseller sticker or sit atop an IMDB chart. They are works that stayed with me long after the final chapter or closing credits. If a story made me think, feel, or look at the world differently, it earned its place here.
+        <br><br>
+        This is a living list. My curiosity never clocks out, so check back often to see what has been added to the vault.
+      </p>
+
+      <!-- Main tabs -->
+      <div class="rec-tabs">
+        <button class="rec-tab active" data-panel="books">
+          📚 Books <span class="rec-tab-count" id="books-count">20</span>
+        </button>
+        <button class="rec-tab" data-panel="cinema">
+          🎬 Cinema <span class="rec-tab-count" id="cinema-count">27</span>
+        </button>
+      </div>
+
+      <!-- ══ BOOKS ══ -->
+      <div class="rec-panel visible" id="panel-books">
+        <div class="genre-filters" id="books-filters"></div>
+        <p class="rec-count" id="books-showing"></p>
+        <div class="rec-grid" id="books-grid"></div>
+      </div>
+
+      <!-- ══ CINEMA ══ -->
+      <div class="rec-panel" id="panel-cinema">
+        <!-- Sub-tabs -->
+        <div class="cinema-subtabs">
+          <button class="cinema-subtab active" data-sub="movies">🎥 Movies <span style="opacity:0.6;font-size:0.7em">(17)</span></button>
+          <button class="cinema-subtab" data-sub="series">📺 Series <span style="opacity:0.6;font-size:0.7em">(10)</span></button>
+        </div>
+
+        <!-- Movies -->
+        <div class="cinema-subpanel visible" id="subpanel-movies">
+          <div class="genre-filters" id="movies-filters"></div>
+          <p class="rec-count" id="movies-showing"></p>
+          <div class="rec-grid" id="movies-grid"></div>
+        </div>
+
+        <!-- Series -->
+        <div class="cinema-subpanel" id="subpanel-series">
+          <div class="genre-filters" id="series-filters"></div>
+          <p class="rec-count" id="series-showing"></p>
+          <div class="rec-grid" id="series-grid"></div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="theme.js"></script>
+  <script>
+    /* ══════════════════════ DATA ══════════════════════ */
+
+    const books = [
+      { title: "Animal Farm",                                        author: "George Orwell",                     year: 1945,        genre: "Political Satire" },
+      { title: "1984",                                               author: "George Orwell",                     year: 1949,        genre: "Political Satire" },
+      { title: "Catch-22",                                           author: "Joseph Heller",                     year: 1961,        genre: "Political Satire" },
+      { title: "Everyone in My Family Has Killed Someone",           author: "Benjamin Stevenson",                year: 2022,        genre: "Mystery Thriller" },
+      { title: "Gone Girl",                                          author: "Gillian Flynn",                     year: 2012,        genre: "Mystery Thriller" },
+      { title: "The Girl on the Train",                              author: "Paula Hawkins",                     year: 2015,        genre: "Mystery Thriller" },
+      { title: "Butter",                                             author: "Asako Yuzuki",                      year: 2017,        genre: "Mystery Thriller" },
+      { title: "Girt: The Unauthorised History of Australia",        author: "David Hunt",                        year: 2013,        genre: "History" },
+      { title: "The Rise and Fall of the Third Reich",               author: "William L. Shirer",                 year: 1960,        genre: "History" },
+      { title: "A Short History of Nearly Everything",               author: "Bill Bryson",                       year: 2003,        genre: "History" },
+      { title: "Sapiens: A Brief History of Humankind",             author: "Yuval Noah Harari",                 year: 2011,        genre: "History" },
+      { title: "The Century Trilogy",                                author: "Ken Follett",                       year: 2010,        genre: "History" },
+      { title: "Tuesdays with Morrie",                               author: "Mitch Albom",                       year: 1997,        genre: "Biography" },
+      { title: "The Diary of a Young Girl",                          author: "Anne Frank",                        year: 1947,        genre: "Biography" },
+      { title: "The Almanack of Naval Ravikant",                     author: "Eric Jorgenson",                    year: 2020,        genre: "Self-help" },
+      { title: "Principles: Life and Work",                          author: "Ray Dalio",                         year: 2017,        genre: "Self-help" },
+      { title: "The Psychology of Money",                            author: "Morgan Housel",                     year: 2020,        genre: "Self-help" },
+      { title: "The Beginning of Infinity",                          author: "David Deutsch",                     year: 2011,        genre: "Science" },
+      { title: "A Brief History of Time",                            author: "Stephen Hawking",                   year: 1988,        genre: "Science" },
+      { title: "Freakonomics",                                       author: "Stephen J. Dubner & Steven Levitt", year: 2005,        genre: "Science" },
+    ];
+
+    const movies = [
+      { title: "Aavesham",            year: 2024,        genre: "Comedy",         lang: "Malayalam" },
+      { title: "Anweshippin Kandethum",year: 2024,       genre: "Crime",          lang: "Malayalam" },
+      { title: "Bangalore Days",       year: 2014,       genre: "Romance",        lang: "Malayalam" },
+      { title: "Big World",            year: 2024,       genre: "Drama",          lang: "Chinese" },
+      { title: "Dhurandhar",           year: 2025,       genre: "Spy action",     lang: "Hindi" },
+      { title: "Gladiator",            year: 2000,       genre: "Epic drama",     lang: "English" },
+      { title: "Green Book",           year: 2018,       genre: "Comedy",         lang: "English" },
+      { title: "Guru",                 year: 2007,       genre: "Drama",          lang: "Hindi" },
+      { title: "Hellaro",              year: 2019,       genre: "Drama",          lang: "Gujarati" },
+      { title: "Iruvar",               year: 1997,       genre: "Epic drama",     lang: "Tamil" },
+      { title: "Jigarthanda DoubleX",  year: 2023,       genre: "Drama",          lang: "Tamil" },
+      { title: "Oldboy",               year: 2003,       genre: "Thriller",       lang: "Korean" },
+      { title: "Oppenheimer",          year: 2023,       genre: "Epic biography", lang: "English" },
+      { title: "Red Cliff (Part 1 & 2)",year: "2008–09", genre: "War",            lang: "Chinese" },
+      { title: "Roja",                 year: 1992,       genre: "Romance",        lang: "Tamil" },
+      { title: "Shaurya",              year: 2008,       genre: "Legal drama",    lang: "Hindi" },
+      { title: "Vash",                 year: 2023,       genre: "Thriller",       lang: "Gujarati" },
+    ];
+
+    const series = [
+      { title: "All of Us Are Dead",      year: 2022,        genre: "Apocalypse",      lang: "Korean" },
+      { title: "Chernobyl",               year: 2019,        genre: "Historical drama", lang: "English" },
+      { title: "Freedom at Midnight",     year: "2024–26",   genre: "Historical drama", lang: "Hindi" },
+      { title: "Hijack",                  year: 2024,        genre: "Thriller",         lang: "English" },
+      { title: "Hometown Cha-Cha-Cha",    year: 2021,        genre: "Romance",          lang: "Korean" },
+      { title: "Khakee: The Bihar Chapter",year: 2023,       genre: "Crime",            lang: "Hindi" },
+      { title: "Mumbai Diaries 26/11",    year: 2021,        genre: "Thriller",         lang: "Hindi" },
+      { title: "Scam 1992",               year: 2020,        genre: "Biography",        lang: "Hindi" },
+      { title: "Shogun",                  year: 2024,        genre: "Historical drama", lang: "English" },
+      { title: "The Spy",                 year: 2019,        genre: "Spy",              lang: "English / French" },
+    ];
+
+    /* ══════════════════════ BUILD HELPERS ══════════════════════ */
+
+    function buildCards(data, gridId, hasAuthor) {
+      const grid = document.getElementById(gridId);
+      data.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'rec-card';
+        card.dataset.genre = item.genre;
+        const langPill = item.lang
+          ? `<span class="lang-pill">${item.lang}</span>`
+          : '';
+        const authorLine = hasAuthor
+          ? `<span class="rec-card-author">${item.author}</span>`
+          : '';
+        card.innerHTML = `
+          <span class="rec-card-title">${item.title}</span>
+          ${authorLine}
+          <div class="rec-card-footer">
+            <div class="rec-card-footer-left">
+              <span class="genre-badge" data-genre="${item.genre}">${item.genre}</span>
+              ${langPill}
+            </div>
+            <span class="rec-card-year">${item.year}</span>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function buildFilters(data, filterId, gridId, counterId) {
+      const wrap = document.getElementById(filterId);
+      const genres = ['All', ...new Set(data.map(d => d.genre))];
+      let active = 'All';
+
+      genres.forEach(g => {
+        const btn = document.createElement('button');
+        btn.className = 'genre-btn' + (g === 'All' ? ' active' : '');
+        btn.dataset.genre = g;
+        btn.textContent = g;
+        btn.addEventListener('click', () => {
+          active = g;
+          wrap.querySelectorAll('.genre-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          filterCards(gridId, counterId, data.length, active);
+        });
+        wrap.appendChild(btn);
+      });
+
+      filterCards(gridId, counterId, data.length, active);
+    }
+
+    function filterCards(gridId, counterId, total, genre) {
+      const grid = document.getElementById(gridId);
+      const counter = document.getElementById(counterId);
+      let visible = 0;
+      grid.querySelectorAll('.rec-card').forEach(card => {
+        const show = genre === 'All' || card.dataset.genre === genre;
+        card.classList.toggle('hidden', !show);
+        if (show) visible++;
+      });
+      counter.textContent = `Showing ${visible} of ${total}`;
+    }
+
+    /* ══════════════════════ INIT ══════════════════════ */
+
+    buildCards(books,  'books-grid',  true);
+    buildCards(movies, 'movies-grid', false);
+    buildCards(series, 'series-grid', false);
+
+    buildFilters(books,  'books-filters',  'books-grid',  'books-showing');
+    buildFilters(movies, 'movies-filters', 'movies-grid', 'movies-showing');
+    buildFilters(series, 'series-filters', 'series-grid', 'series-showing');
+
+    /* ── Main tab switching ── */
+    document.querySelectorAll('.rec-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.rec-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.rec-panel').forEach(p => p.classList.remove('visible'));
+        tab.classList.add('active');
+        document.getElementById('panel-' + tab.dataset.panel).classList.add('visible');
+      });
+    });
+
+    /* ── Cinema sub-tab switching ── */
+    document.querySelectorAll('.cinema-subtab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.cinema-subtab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.cinema-subpanel').forEach(p => p.classList.remove('visible'));
+        tab.classList.add('active');
+        document.getElementById('subpanel-' + tab.dataset.sub).classList.add('visible');
+      });
+    });
+  </script>
+
+</body>
+</html>
